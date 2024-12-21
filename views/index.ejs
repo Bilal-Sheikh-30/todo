@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <h2>Welcome</h2>
+    <button type="button" onclick="showForm()">New Task</button>
+    <div class="addTask">
+        <form action="/addtask" method="post">
+            <label for="categories">Choose a label:</label>
+            <select id="categories" name="categories">
+                <option value="None">None</option>
+                <option value="home">Home</option>
+                <option value="study">Study</option>
+                <option value="sports">Sports</option>
+                <option value="routine">Routine</option>
+                <option value="hobby">Hobby</option>
+            </select>
+
+            <br>
+            <textarea name="description" id=""></textarea>
+
+            <br>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+
+    <form action="/filter-task" method="post">
+        <h3>Filter Task </h3>
+        <label for="categories">Choose a label:</label>
+            <select id="categories" name="categories">
+                <option value="None">None</option>
+                <option value="home">Home</option>
+                <option value="study">Study</option>
+                <option value="sports">Sports</option>
+                <option value="routine">Routine</option>
+                <option value="hobby">Hobby</option>
+            </select>
+        <button type="submit">Filter</button>
+    </form>
+
+
+    <form action="/save-changes" method="post">
+        <% if (tasks.length > 0){ %>
+            <% let showSaveBtn = false; %>
+            <% tasks.forEach((task, index)=> { %>
+                <div>
+                    <% if (task.Status == 'Incomplete'){ %>
+                    <% showSaveBtn = true; %>
+                    <input type="checkbox" id="<%= task._id %>" name="<%= task._id %>">
+                    <label for="<%= task._id %>" class="task-complete"><%= task.task %></label>
+                    <% }; %>
+                </div>
+            <% }); %>
+            <% if (showSaveBtn) { %>
+            <button type="submit" id="btn-submit">Save Changes.</button>
+            <% } else{ %>
+                <p>You have no pending work rightnow.</p>
+            <% } %> 
+        <% } else { %>
+            <p>You have no pending work rightnow</p>
+        <% } %>
+    </form>
+
+
+
+    <h3>Completed Tasks:</h3>
+    <% if (tasks.length > 0) { %>
+        <% let anycompletedTask = false; %>
+        <% tasks.forEach((task, index) => { %>
+            <% if (task.Status === 'Complete') { %>
+                <% anycompletedTask = true; %>
+                <p style="text-decoration: line-through;"><%= task.task %></p> 
+            <% } %>
+        <% }); %>
+
+        <% if(anycompletedTask) {%>
+            <form action="/clear-history" method="post">
+                <button type="submit">Clear History</button>
+            </form>
+        <% } else{ %>
+            <p>No History to show.</p>
+            <% }; %>
+            
+    <% } else{ %>
+        <p>No History to show.</p>
+    <% }; %>
+    
+    <script src="index.js"></script>
+</body>
+
+</html>
