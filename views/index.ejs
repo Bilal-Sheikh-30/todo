@@ -32,18 +32,22 @@
     </div>
 
     <form action="/filter-task" method="post">
-        <h3>Filter Task </h3>
-        <label for="categories">Choose a label:</label>
-            <select id="categories" name="categories">
-                <option value="None">None</option>
-                <option value="home">Home</option>
-                <option value="study">Study</option>
-                <option value="sports">Sports</option>
-                <option value="routine">Routine</option>
-                <option value="hobby">Hobby</option>
-            </select>
-        <button type="submit">Filter</button>
-    </form>
+    <h3>Filter Task </h3>
+    <label for="categories">Choose a label:</label>
+    <select id="categories" name="categories">
+        <option value="None">None</option>
+        <option value="home">Home</option>
+        <option value="study">Study</option>
+        <option value="sports">Sports</option>
+        <option value="routine">Routine</option>
+        <option value="hobby">Hobby</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+<% if (typeof filterMessage !== 'undefined' && filterMessage) { %>
+    <p style="color: red; font-weight: bold; margin-top: 10px;"><%= filterMessage %></p>
+<% } %>
 
 
     <form action="/save-changes" method="post">

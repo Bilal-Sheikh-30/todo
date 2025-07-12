@@ -1,15 +1,3 @@
-function showForm(){
-    const formHandle = document.querySelector('.addTask');
-
-    if (formHandle.style.display === 'none') {
-        formHandle.style.display = 'block'
-    }else{
-        formHandle.style.display = 'none'
-    }
-
-}
-let changes = false;
-
 const completedTask = document.getElementsByClassName('task-complete');
 for (let i = 0; i < completedTask.length; i++) {
     completedTask[i].addEventListener('click', () => {
@@ -30,3 +18,7 @@ submitBtn.addEventListener('click', (e) => {
         alert('no changes to save.')
     }
 })
+
+function showForm() {
+    document.querySelector('.addTask').classList.toggle('show');
+}

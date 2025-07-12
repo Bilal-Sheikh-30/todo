@@ -80,11 +80,15 @@ app.post('/filter-task',async (req, res) => {
     });
 
     if (Object.keys(result).length < 1) {
-        return res.status(404).json({
-            'message': 'no task for this category.'
-        })
+        return res.render('index', {
+            tasks: [],
+            filterMessage: 'No tasks found for this category.'
+        });
     }else{
-        res.render('index', {'tasks': result})
+        return res.render('index', {
+            tasks: result,
+            filterMessage: null
+        });
     };
 })
 
